@@ -12,7 +12,7 @@ interface Launchpad {
   launches?: string[];
 }
 
-const App = () => {
+export default function App () {
   const [launchpads, setLaunchpads] = useState<Launchpad[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [recordsPerPage, setRecordsPerPage] = useState<number>(5);
@@ -153,5 +153,3 @@ const App = () => {
     </div>
   );
 };
-
-export default App;
