@@ -22,7 +22,6 @@ export default function App () {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get<Launchpad[]>('https://api.spacexdata.com/v4/launchpads');
-      console.log('Data fetched successfully:', response.data);
       setLaunchpads(response.data);
     };
     fetchData();
@@ -97,14 +96,26 @@ export default function App () {
                 alt={launchpad.name}
               />
             </div>
-            <h3 className="mt-3">Launches</h3>
-            <ul className="list-group">
-              {launchpad.launches?.map((launch, index) => (
-                <li key={index} className="list-group-item">
-                  {launch}
-                </li>
-              ))}
-            </ul>
+            <div className="accordion" id="launchAccordion">
+              <div className="accordion-item">
+                <h2 className="accordion-header" id="launchesHeading">
+                  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#launchesCollapse" aria-expanded="false" aria-controls="launchesCollapse">
+                    Launches
+                  </button>
+                </h2>
+                <div id="launchesCollapse" className="accordion-collapse collapse" aria-labelledby="launchesHeading" data-bs-parent="#launchAccordion">
+                  <div className="accordion-body">
+                    <ul className="list-group">
+                      {launchpad.launches?.map((launch, index) => (
+                        <li key={index} className="list-group-item">
+                          {launch}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
             <a
               href={getWikipediaLink(launchpad.name)}
               target="_blank"
